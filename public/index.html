@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id='outer-container'>
+        <div id='nav'>
+            <h2>Nav</h2>
+        </div>
+        <div id='form-container'>
+            <h1>Join The Chat</h1>
+            <main class="join-main">
+				<form action="chat.html">
+					<div class="form-control">
+						<label for="username">Username</label>
+						<input
+							type="text"
+							name="username"
+							id="username"
+							placeholder="Enter username..."
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="room">Room</label>
+						<select name="room" id="room">
+							<option value="Senior">2006-fsa-ch-web-ft-sr</option>
+							<option value="Career">career-2006-fsa-rm-chi</option>
+						</select>
+					</div>
+					<div id='admin'>
+						<label for="admin">Admin Password</label>
+						<input type="password"
+						name='admin'
+						id='admin'
+						
+						placeholder="enter admin password"
+						>
+					</div>
+					<button type="submit" class="btn">Join Chat</button>
+				</form>
+        </div>
+    </div>
+    <script src='/socket.io/socket.io.js'></script>
+    <script src="./js/starter.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sockets</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id='head'>
+            <h2 id='welcome'></h2>
+        </div>
+        
+        <div class="col-sm-3 col-sm-offset-4 frame">
+            <div id='box'>
+            <div id="chat-outer">
+                <div id='sidebar'>
+                    
+                </div>
+               <div id='chat-box'>
+                <ul id='list'>
+                
+                </ul>
+                <div id='contact-container'>
+                    <ul id='contacts'>
+
+                    </ul>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div>
+                <div class="msj-rta macro">                        
+                    <div class="text text-r" style="background:whitesmoke !important">
+                        <input class="mytext" id='enter'  placeholder="Type a message"/>
+                    </div> 
+
+                </div>
+                <div style="padding:10px;">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </div>                
+            </div>
+        </div> 
+        <script 
+            src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" 
+            integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" 
+            crossorigin="anonymous"></script>
+            <script src='/socket.io/socket.io.js'></script>
+            <script src="./js/chat.js"></script>      
+    </body>
+</html>
