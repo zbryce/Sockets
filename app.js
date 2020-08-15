@@ -45,6 +45,9 @@ io.on('connection', (socket) => {
                 socket.broadcast.emit('new user', `${obj.username} ${socket.id} has joined the chat`)
                 socket.emit('client', [obj.username, 'red'])
                 socket.broadcast.emit('other client', [obj.username, 'red'])
+                
+                socket.emit('adminMember', [obj.username, socket.id])
+                socket.broadcast.emit('adminMember', [obj.username, socket.id])
             })
             socket.on('namespace', (username) => {
                 

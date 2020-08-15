@@ -61,7 +61,10 @@
 
     /* border: black 2px solid; */
  
-
+}
+#online{
+    position: relative;
+    left: 350px;
 }
 #row{
     display: flex;

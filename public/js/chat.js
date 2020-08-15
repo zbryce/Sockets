@@ -35,6 +35,7 @@ socket.on('myMessage', (message) => {
     list.appendChild(myMessage)
 })
 socket.on('theirMessage', (message) => {
+    console.log('their message ', message)
     const there = document.createElement('p')
     there.classList.add('theirMessage')
     there.innerHTML = message
@@ -108,6 +109,7 @@ const clients = document.getElementById('list')
 const namespaceButton = document.getElementById('namespace-button')
 const adminButton = document.getElementById('admin-button')
 const idButton = document.getElementById('idButton')
+const memberList = document.getElementById('members')
 
 idButton.addEventListener('click', (e) => {
     event.preventDefault()
@@ -141,6 +143,23 @@ input.addEventListener('keypress', function (e) {
     }
 });
 
+socket.once('meAdmin', (inforArr) => {
+const [ username, id ] = infoArr
+    console.log('ua', username, id)
+    const user = `${username} : ${id}`
+    const person = document.createElement('p')
+    person.innerHTML = user
+    memberList.appendChild(person)
 
+})
 
+socket.once('adminMember', (infoArr) => {
+    const [ username, id ] = infoArr
+    console.log('ua', username, id)
+    const user = `${username} : ${id}`
+    const person = document.createElement('p')
+    person.innerHTML = user
+    memberList.appendChild(person)
+
+})
 
