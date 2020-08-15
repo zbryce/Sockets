@@ -1,4 +1,5 @@
-let socket = io('/admin')
+let socket = io()
+
 
 
 const { username, room, admin } = Qs.parse(location.search, {
@@ -6,25 +7,27 @@ const { username, room, admin } = Qs.parse(location.search, {
 });
 
 
-// if(admin === 'milo'){
-//     socket = io('/admin')
-// }
-console.log('socket it ', socket)
+if(admin === 'milo'){
+    socket = io('/admin')
+}
+
 socket.emit('login', {username, room, admin})
-socket.on('admin', (message) => {
-    console.log('admin obj ', message)
-    const sidebar = document.getElementById('sidebar')
+socket.on('admin-log', (message) => {
+    const sidebar = document.getElementById('sidebar-div')
     sidebar.style.background = 'maroon'
+    const status = document.getElementById('status')
+    status.innerHTML = 'ADMIN'
 })
 socket.on('myMessage', (message) => {
-    const mine = document.createElement('li')
-    mine.classList.add('mine')
-    mine.innerHTML = message
-    list.appendChild(mine)
+    console.log('admin message ', message)
+    const myMessage = document.createElement('li')
+    myMessage.classList.add('myMessage')
+    myMessage.innerHTML = message
+    list.appendChild(myMessage)
 })
-socket.on('thereMessage', (message) => {
+socket.on('theirMessage', (message) => {
     const there = document.createElement('li')
-    there.classList.add('there')
+    there.classList.add('their')
     there.innerHTML = message
     list.appendChild(there)
 })
@@ -43,6 +46,7 @@ socket.on('new user', (message) => {
 })
 //my message
 socket.on('message', (message) => {
+    console.log('in message ', message)
     const item = document.createElement('li')
     item.classList.add('message')
     item.innerHTML = message
@@ -58,13 +62,13 @@ socket.on('admin-message', (message) => {
     list.appendChild(item)
 })
 
-const list = document.getElementById('list')
+const list = document.getElementById('messages')
 const chat = document.getElementById('chat')
-const input = document.getElementById('enter')
+const input = document.getElementById('main-input')
 
 input.addEventListener('keypress', function (e) {
-    console.log('e list ', socket)
     if (e.key === 'Enter') {
+        console.log('val ', e.target.value)
       socket.emit('message', e.target.value, room)
       e.target.value = ''
     }

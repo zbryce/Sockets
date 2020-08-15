@@ -22,48 +22,47 @@ const getVisitors = () => {
 const emitVisitors = () => {
     io.emit('users', getVisitors())
 }
-io.on('connection', (socket) => {
-    // io.of('/admin').on('greeting', () => {
-        //     console.log('in greeting')
-        //     io.of('/admin').emit('greeting ', 'hello admin')
-        // })
-        const adminnsp = io.of('/admin')
-        adminnsp.on('connection', () => {
-            console.log('connected')
-            adminnsp.emit('admin', 'connected to admin' )
-        })
 
-        adminnsp.on('admin', (message) => {
-            console.log(message)
-        })  
-        adminnsp.on('login', obj => {
-            console.log('in admin login', obj)
+io.on('connection', (socket) => {
+        const admin = io.of('/admin')
+        admin.on('connection', (socket) => {
+            socket.on('login', (obj) => {
+                socket.emit('admin-log', obj)
+            })
+            socket.on('message', (message => {
+                console.log('admin message ', message)
+                socket.volatile.emit('myMessage', message)
+                socket.broadcast.volatile.emit('thereMessage', message)
+                // socket.broadcast.emit('thereMessage', message)
+
+            }))
+            socket.on('disconnect', () => {
+                console.log('admin left')
+            })
         })
+       
         socket.on('login', (obj) => {
-            console.log('in login', obj)
             const room = obj.room
             const username = obj.username
-            adminnsp.emit('admin', obj)
             socket.join(room)
             socket.emit('welcome', `Welcome to the ${room} room!`)
             socket.to(room).emit('new user', `${username} has joined the channel`)
         })
-        adminnsp.on('message', (message) => {
-            console.log('admin message')
-            adminnsp.emit('admin-message', message)
-        })
-        socket.on('message', (message, room) => {
-            console.log('wrong message')
-            socket.emit('myMessage', message)
-            socket.to(room).emit('thereMessage', message)
         
-    })
+        socket.on('message', (message, room) => {
+            console.log('user message')
+            socket.emit('myMessage', message)
+            socket.to(room).emit('theirMessage', message)
+        })
     
-    socket.on('disconnect', () => {
-        console.log('disconnected')
-    })
+        socket.on('disconnect', () => {
+            console.log('disconnected')
+        })
 })
 
+// adminnsp.on('connection', (socket) => {
+//     socket.on('conn')
+// })
 server.listen('4000', () => {
     console.log('listening on 4000')
 })
