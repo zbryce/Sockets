@@ -12,7 +12,8 @@ body{
     background: tan;
     flex: 2;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-self: center;
 }
 .container{
     display: flex;
@@ -21,13 +22,21 @@ body{
     border: solid goldenrod 1px
 
 }
+#chat-name{
+    text-decoration: underline;
+    position: relative;
+    left: 180px;
+}
+.no-response{
+    color: red;
+}
 #sidebar-div{
     background:royalblue;
     flex: 1;
     height: 600px;
 }
 #list-div{
-    background: darkslategray;
+    background: whitesmoke;
     flex: 2;
 }
 .top{
@@ -37,6 +46,12 @@ body{
 .bottom{
     flex: 1;
 }
+/* #list {
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+
+} */
 #row{
     display: flex;
 }
@@ -46,5 +61,22 @@ body{
 }
 
 .myMessage{
-    justify-self: right;
+    position: relative;
+    left: 400px;
+    padding-top: 10px;
+    color: darkslategray;
+    flex: 1;
+    font-size: xx-large;
+    text-decoration: double;
+}
+.theirMessage {
+    justify-self: left;
+    color: teal;
+    flex: 1;
+    font-size: xx-large;
+    text-decoration: double;
+}
+.neutral{
+    position: relative;
+    left: 150px;
 }
