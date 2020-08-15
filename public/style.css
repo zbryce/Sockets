@@ -1,5 +1,5 @@
-body{
-    background: tan
+#chat-body{
+    background: black;
 }
 
 #box{
@@ -8,12 +8,17 @@ body{
     align-content: flex-end;
 
 }
+.bottom{
+    background-color: lightgrey;
+    border: black solid 3px;
+}
 #chat{
-    background: tan;
+    background: rgb(223, 223, 196);
     flex: 2;
     display: flex;
     flex-direction: column;
     justify-self: center;
+    border: lightslategray solid 2px;
 }
 .container{
     display: flex;
@@ -32,11 +37,14 @@ body{
 }
 #sidebar-div{
     background:royalblue;
-    flex: 1;
+    flex: 0.5;
     height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #list-div{
-    background: whitesmoke;
+    background:lightgray;
     flex: 2;
 }
 .top{
@@ -46,28 +54,37 @@ body{
 .bottom{
     flex: 1;
 }
-/* #list {
-    display: flex;
-    margin-top: 10px;
-    flex-direction: column;
+#list {
+    position: relative;
+    top: 100px;
+    left: 95px;
 
-} */
+    /* border: black 2px solid; */
+ 
+
+}
 #row{
     display: flex;
 }
 #main-input{
     line-height: 6em;
     margin-left: 280px;
+    border: solid black 2px;
 }
-
+/* #messages {
+    border: solid slategray 2px;
+} */
 .myMessage{
     position: relative;
     left: 400px;
-    padding-top: 10px;
+    padding-top: 4px;
     color: darkslategray;
     flex: 1;
     font-size: xx-large;
     text-decoration: double;
+}
+#outer-container {
+    background: whitesmoke;
 }
 .theirMessage {
     justify-self: left;
@@ -79,4 +96,23 @@ body{
 .neutral{
     position: relative;
     left: 150px;
+}
+#nav {
+    background: lightslategray;
+    flex: 10;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#status{
+    text-decoration: underline;
+}
+.top{
+    flex: 3;
+}
+#title{
+    text-shadow: lavender;
+}
+#user-from{
+    background: lightcyan
 }

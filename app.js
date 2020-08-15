@@ -27,10 +27,17 @@ const serveClients = (keys) => {
         console.log('key ', key)
     });
 }
+const connectedUsers = {
+
+}
 io.on('connection', (socket) => {
-    console.log('nsp',socket.nsp.name)
+
+    connectedUsers[socket.id] = socket
+
         const admin = io.of('/admin')
         admin.on('connection', (socket) => {
+            connectedUsers[socket.id] = socket
+      
             // serveClients(clients)
             socket.on('login', (obj) => {
                 console.log('api obj', obj)
@@ -43,12 +50,18 @@ io.on('connection', (socket) => {
                 
                 admin.emit('userPush', ([`${username} pushed the admin namespace button!`, 'red']))
             })
+            socket.on('get-id', (idMessage => {
+                const {id, payload, username } = idMessage
+                const user = connectedUsers[id]
+                const newMessage = `${user.id} ${username}: ${payload}`
+               connectedUsers[id].emit('private', newMessage)
+               
+            }))
             socket.on('adminButton', (username) => {
                 admin.emit('adminClick', (`Admin ${username} sent a notice to everyone.`))
                 io.emit('adminClick', (`Admin ${username} sent a notice to everyone.`))
             })
             socket.on('message', (message => {
-                console.log('admin message ', message)
                 socket.volatile.emit('myMessage', message)
                 socket.broadcast.volatile.emit('theirMessage', message)
                 // socket.broadcast.emit('thereMessage', message)
@@ -58,15 +71,25 @@ io.on('connection', (socket) => {
                 console.log('admin left')
             })
         })
-       
+        socket.on('get-id', (idMessage => {
+            const {id, payload, username } = idMessage
+            const user = connectedUsers[id]
+            const newMessage = `${user.id} ${username}: ${payload}`
+            connectedUsers[id].emit('private', newMessage)
+           
+        }))
         socket.on('login', (obj) => {
             const room = obj.room
             const username = obj.username
             socket.join(room)
             socket.emit('welcome', `Welcome to the ${room} room!`)
-            socket.to(room).emit('new user', `${username} has joined the channel`)
+            socket.to(room).emit('new user', `${username} ${socket.id} has joined the channel`)
         })
-        
+        socket.on('get-id', (idMessage => {
+            console.log('in get id')
+            const {id, message } = idMessage
+            io.to(id).emit('private', message)
+        }))
         socket.on('message', (message, room) => {
             console.log('user message')
             socket.emit('myMessage', message)
@@ -84,6 +107,6 @@ io.on('connection', (socket) => {
 // adminnsp.on('connection', (socket) => {
 //     socket.on('conn')
 // })
-server.listen('4000', () => {
-    console.log('listening on 4000')
+server.listen('2020', () => {
+    console.log('listening on 2020')
 })

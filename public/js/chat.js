@@ -11,10 +11,10 @@ if(admin === 'milo'){
     socket = io('/admin')
 }
 // console.log('socket is ', socket)
-const login = () => {
-    socket.emit('login', {username, room, admin})
-}
-login()
+
+console.log('username is', username)
+socket.emit('login', {username, room, admin})
+
 
 socket.once('admin-log', (message) => {
     console.log('in admin log')
@@ -29,15 +29,16 @@ socket.once('admin-log', (message) => {
 })
 socket.on('myMessage', (message) => {
     console.log('admin message ', message)
-    const myMessage = document.createElement('li')
+    const myMessage = document.createElement('p')
     myMessage.classList.add('myMessage')
     myMessage.innerHTML = message
     list.appendChild(myMessage)
 })
 socket.on('theirMessage', (message) => {
-    const there = document.createElement('li')
+    const there = document.createElement('p')
     there.classList.add('theirMessage')
     there.innerHTML = message
+                                                                                        
     list.appendChild(there)
 })
 socket.on('welcome', (message) => {
@@ -93,14 +94,32 @@ socket.once('adminClick', (message) => {
     adminNotice.innerHTML = message
     clients.appendChild(adminNotice)
 })
+socket.once('private', (message) => {
+    console.log('private msg ', message)
+    const privateMsg = document.createElement('h3')
+    privateMsg.classList.add('private')
+    privateMsg.innerHTML = message
+    clients.appendChild(privateMsg)
+})
 const list = document.getElementById('messages')
 const chat = document.getElementById('chat')
 const input = document.getElementById('main-input')
 const clients = document.getElementById('list')
 const namespaceButton = document.getElementById('namespace-button')
 const adminButton = document.getElementById('admin-button')
+const idButton = document.getElementById('idButton')
 
+idButton.addEventListener('click', (e) => {
+    event.preventDefault()
+    const input = document.getElementById('id-string')
+    const id = input.value
+    const message = document.getElementById('solo-message')
+    const payload = message.value
 
+    socket.emit('get-id', ({id, payload, username}))
+    input.value = ''
+    message.value = ''
+})
 adminButton.addEventListener('click', (e) => {
     console.log('socket ', socket.nsp)
     if(socket.nsp === '/admin'){
