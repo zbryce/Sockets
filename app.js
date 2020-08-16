@@ -52,11 +52,13 @@ io.on('connection', (socket) => {
            })
            socket.on('get-id', (Private) => {
                const { id, payload, username} = Private
+               console.log('admin message', connectedUsers[id])
                const user = connectedUsers[id]
-               console.log('admin user ', user.id)
+               console.log('in get id')
                const socket = user
                const line = `# ${id} ${username} says: ${payload}`
-               socket.volatile.emit('private', line)
+               socket.volatile.emit('myPrivate', line)
+               socket.broadcast.volatile.emit('private', line)
            })
            socket.on('adminButton', (username) => {
                admin.emit('adminClick', (`Admin ${username} sent a notice to everyone.`))
@@ -107,3 +109,4 @@ io.on('connection', (socket) => {
 server.listen('1919', () => {
 console.log('listening on 1919')
 })
+
