@@ -64,19 +64,7 @@ socket.on('message', (message) => {
     const list = document.querySelector('#list')
     list.appendChild(item)
 })
-// socket.once('client', (usercolor) => {
-//     console.log('in client ', usercolor[0])
-//     const client = document.createElement('p')
-//     client.classList.add(usercolor[1])
-//     client.innerHTML = usercolor[0]
-//     clients.appendChild(client)
-// })
-// socket.once('other client', (usercolor) => {
-//     const client = document.createElement('p')
-//     client.classList.add(usercolor[1])
-//     client.innerHTML = usercolor[0]
-//     clients.appendChild(client)
-// })
+
 socket.on('admin-message', (message) => {
     const item = document.createElement('li')
     item.classList.add('message')
@@ -95,13 +83,21 @@ socket.once('adminClick', (message) => {
     adminNotice.innerHTML = message
     clients.appendChild(adminNotice)
 })
-socket.once('private', (message) => {
+socket.on('private', (message) => {
     console.log('private msg ', message)
     const privateMsg = document.createElement('h3')
     privateMsg.classList.add('private')
     privateMsg.innerHTML = message
     clients.appendChild(privateMsg)
 })
+socket.on('myPrivate', (message) => {
+    console.log('private msg ', message)
+    const privateMsg = document.createElement('h3')
+    privateMsg.classList.add('private')
+    privateMsg.innerHTML = message
+    clients.appendChild(privateMsg)
+})
+
 const list = document.getElementById('messages')
 const chat = document.getElementById('chat')
 const input = document.getElementById('main-input')
@@ -117,7 +113,7 @@ idButton.addEventListener('click', (e) => {
     const id = input.value
     const message = document.getElementById('solo-message')
     const payload = message.value
-
+    console.log('payload ', payload)
     socket.emit('get-id', ({id, payload, username}))
     input.value = ''
     message.value = ''
