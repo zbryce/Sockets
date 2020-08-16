@@ -44,8 +44,7 @@ io.on('connection', (socket) => {
                socket.emit('client', [obj.username, 'red'])
                socket.broadcast.emit('other client', [obj.username, 'red'])
               
-               socket.emit('adminMember', [obj.username, socket.id])
-               socket.broadcast.emit('adminMember', [obj.username, socket.id])
+               
            })
            socket.on('namespace', (username) => {
               
@@ -73,17 +72,7 @@ io.on('connection', (socket) => {
             console.log('admin left')
         })
     })
-    // socket.on('get-id', (idMessage) => {
-    //     console.log('user private')
-       
-    //     const {id, payload, username } = idMessage
-    //     console.log('cu id ', connectedUsers[id])
-    //     const user = connectedUsers[id]
-    //     console.log('user user ', user)
-    //     // const newMessage = `${user.id} ${username}: ${payload}`
-    //     // connectedUsers[id].emit('private', newMessage)
-      
-    // })
+
     socket.on('login', (obj) => {
         const room = obj.room
         const username = obj.username

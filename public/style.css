@@ -20,6 +20,23 @@
     justify-self: center;
     border: lightslategray solid 2px;
 }
+#chatLabels{
+    display: flex;
+    position: relative;
+    left: 100px;
+}
+#incoming  {
+    flex: 2;
+    text-decoration: underline;
+}
+#outgoing{
+    flex:2;
+    text-decoration: underline;
+}
+#general{
+    flex:2;
+    text-decoration: underline;
+}
 .container{
     display: flex;
 }
@@ -28,10 +45,11 @@
 
 }
 #chat-name{
-    text-decoration: underline;
+    text-decoration: wavy;
     position: relative;
-    left: 180px;
+    left: 300px;
 }
+
 .no-response{
     color: red;
 }
@@ -79,21 +97,24 @@
 } */
 .myMessage{
     position: relative;
-    left: 400px;
-    padding-top: 4px;
+    left: 480px;
+    padding-top: 2px;
     color: darkslategray;
     flex: 1;
-    font-size: xx-large;
+    font-size: x-large;
     text-decoration: double;
 }
 #outer-container {
     background: whitesmoke;
 }
 .theirMessage {
-    justify-self: left;
+    /* justify-self: left; */
+    position: relative;
+    left: 35px;
     color: teal;
     flex: 1;
-    font-size: xx-large;
+    padding-top: 2px;
+    font-size: x-large;
     text-decoration: double;
 }
 .neutral{

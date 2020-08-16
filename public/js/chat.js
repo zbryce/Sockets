@@ -15,6 +15,11 @@ if(admin === 'milo'){
 console.log('username is', username)
 socket.emit('login', {username, room, admin})
  
+// socket.on('userList', (userId) => {
+//     const {user, id} = userId
+//     const list = document.getElementById('members')
+    
+// })
  
 socket.once('admin-log', (message) => {
    console.log('in admin log')
@@ -149,7 +154,14 @@ const [ username, id ] = infoArr
    memberList.appendChild(person)
  
 })
- 
+socket.once('meMember', (infoArr) => {
+   const [ username, id ] = infoArr
+   console.log('ua', username, id)
+   const user = `${username} : ${id}`
+   const person = document.createElement('p')
+   person.innerHTML = user
+   memberList.appendChild(person)
+})
 socket.once('adminMember', (infoArr) => {
    const [ username, id ] = infoArr
    console.log('ua', username, id)
