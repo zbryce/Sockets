@@ -55,7 +55,8 @@ socket.on('welcome', (message) => {
    welcome.innerHTML = message
    list.appendChild(welcome)
 })
-socket.once('new user', (message) => {
+socket.once('new-user', (message) => {
+    console.log('in new ')
    const hello = document.createElement('li')
    hello.classList.add('neutral')
    hello.innerHTML = message

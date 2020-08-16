@@ -80,14 +80,15 @@ io.on('connection', (socket) => {
         const username = obj.username
         socket.join(room)
         socket.emit('welcome', `Welcome to the ${room} room!`)
-        socket.to(room).emit('new user', `${username} ${socket.id} has joined the channel`)
+        socket.to(room).emit('new-user', `${username} ${socket.id} has joined the channel`)
     })
     socket.on('get-id', (Private) => {
         const { id, payload, username} = Private
         const user = connectedUsers[id]
         const socket = user
         const line = `# ${id} ${username} says: ${payload}`
-        socket.emit('private', line)
+        socket.volatile.emit('private', line)
+        socket.broadcast.volatile.emit('myPrivate', line)
     })
     socket.on('message', (message, room) => {
         console.log('user message')
